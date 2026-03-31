@@ -32,6 +32,7 @@ function preencherDetalhes(cadastro) {
   document.getElementById('d-nome').textContent = valorOuTraco(cadastro.nome_completo)
   document.getElementById('d-cpf').textContent = valorOuTraco(cadastro.cpf)
   document.getElementById('d-email-cliente').textContent = valorOuTraco(cadastro.email_cliente)
+  document.getElementById('d-telefone-cliente').textContent = valorOuTraco(cadastro.telefone_cliente)
   document.getElementById('d-cep').textContent = valorOuTraco(cadastro.cep)
   document.getElementById('d-rua').textContent = valorOuTraco(cadastro.rua)
   document.getElementById('d-numero').textContent = valorOuTraco(cadastro.numero)
@@ -43,7 +44,6 @@ function preencherDetalhes(cadastro) {
 
   document.getElementById('d-pagador-nome').textContent = valorOuTraco(cadastro.pagador_nome)
   document.getElementById('d-pagador-email').textContent = valorOuTraco(cadastro.pagador_email)
-  document.getElementById('d-pagador-telefone').textContent = valorOuTraco(cadastro.pagador_telefone)
 
   detalhesCard.classList.remove('hidden')
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
@@ -81,7 +81,7 @@ function renderizarLista(cadastros) {
           </div>
           <div>
             <p class="text-white/35">Telefone</p>
-            <p class="mt-1">${valorOuTraco(cadastro.pagador_telefone)}</p>
+            <p class="mt-1">${valorOuTraco(cadastro.telefone_cliente)}</p>
           </div>
           <div>
             <p class="text-white/35">Criado em</p>
@@ -110,9 +110,9 @@ function filtrarCadastros() {
       cadastro.nome_completo,
       cadastro.cpf,
       cadastro.email_cliente,
+      cadastro.telefone_cliente,
       cadastro.pagador_nome,
-      cadastro.pagador_email,
-      cadastro.pagador_telefone
+      cadastro.pagador_email
     ]
       .filter(Boolean)
       .some((campo) => String(campo).toLowerCase().includes(termo))
