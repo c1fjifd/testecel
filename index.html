@@ -4,9 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Arte iPhone Imports - Cadastro</title>
+  <meta name="description" content="Ficha de cadastro da Arte iPhone Imports" />
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background:
         radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 30%),
@@ -14,9 +18,14 @@
     }
 
     .glass {
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.08);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .soft-border {
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .input-dark {
@@ -27,174 +36,505 @@
       border-radius: 1rem;
       padding: 0.95rem 1rem;
       outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-dark::placeholder {
+      color: rgba(255,255,255,0.42);
+    }
+
+    .input-dark:focus {
+      border-color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.05);
     }
 
     .label-dark {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 4px;
       display: block;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.86);
+      margin-bottom: 0.55rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      color: #fff;
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .section-subtitle {
+      color: rgba(255,255,255,0.58);
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
 
     .btn-primary {
       background: #fff;
       color: #000;
       border-radius: 999px;
-      font-weight: bold;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.07);
+    }
+
+    .hidden-step {
+      display: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 220px;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.10), transparent 60%);
+      pointer-events: none;
+      filter: blur(30px);
+      opacity: 0.45;
     }
   </style>
 </head>
+<body class="min-h-screen text-white">
 
-<body class="text-white min-h-screen">
+  <main class="relative min-h-screen overflow-hidden">
+    <div class="hero-glow"></div>
 
-<div class="max-w-6xl mx-auto p-4">
+    <section class="px-4 py-6 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl">
 
-  <!-- HEADER -->
-  <div class="glass p-4 rounded-2xl flex items-center gap-4 mb-6">
-    <img src="images/logo.png" class="h-12" />
-    <div>
-      <p class="text-xs opacity-50">Cadastro digital</p>
-      <h1 class="text-xl font-bold">Arte iPhone Imports</h1>
-    </div>
-  </div>
+        <div class="mb-6 sm:mb-8">
+          <div class="glass rounded-[28px] p-4 sm:p-5">
+            <div class="flex items-center gap-4">
+              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/95 p-2 shadow-lg shadow-black/30">
+                <img
+                  src="images/logo.png"
+                  alt="Logo Arte iPhone Imports"
+                  class="max-h-full max-w-full object-contain"
+                  onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;text-xs font-bold text-black text-center leading-tight&quot;>ARTE<br>IPHONE</span>';"
+                />
+              </div>
 
-  <div class="grid lg:grid-cols-2 gap-6">
-
-    <!-- FORM -->
-    <div class="glass p-6 rounded-2xl">
-
-      <h2 class="text-lg font-bold mb-4">Cadastro Cliente</h2>
-
-      <div class="space-y-4">
-
-        <div>
-          <label class="label-dark">Nome completo</label>
-          <input id="nomeCompleto" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">CPF</label>
-          <input id="cpf" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">E-mail</label>
-          <input id="emailCliente" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">Telefone</label>
-          <input id="telefoneCliente" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">CEP</label>
-          <input id="cep" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">Rua</label>
-          <input id="rua" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">Número</label>
-          <input id="numero" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">Complemento</label>
-          <input id="complemento" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">Bairro</label>
-          <input id="bairro" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">Cidade</label>
-          <input id="cidade" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">Estado</label>
-          <input id="estado" class="input-dark">
-        </div>
-
-      </div>
-
-      <h2 class="text-lg font-bold mt-8 mb-4">Dados do Pagador</h2>
-
-      <div class="space-y-4">
-
-        <div>
-          <label class="label-dark">Nome</label>
-          <input id="pagadorNome" class="input-dark">
-        </div>
-
-        <div>
-          <label class="label-dark">E-mail</label>
-          <input id="pagadorEmail" class="input-dark">
-        </div>
-
-      </div>
-
-      <button id="btn-ir-preview" class="btn-primary w-full mt-6 p-4">
-        Revisar dados
-      </button>
-
-    </div>
-
-    <!-- LADO DIREITO -->
-    <div class="space-y-6">
-
-      <div class="glass p-6 rounded-2xl">
-        <h3 class="text-lg font-bold mb-4">Arte iPhone Imports</h3>
-
-        <div class="space-y-4 text-sm">
-
-          <div>
-            <p class="opacity-50">CNPJ</p>
-            <p>44.691.554/0001-58</p>
-          </div>
-
-          <!-- ENDEREÇO LOJA -->
-          <div>
-            <p class="opacity-50">Endereço da Loja</p>
-
-            <div class="mt-2 border border-white/10 p-3 rounded-xl bg-white/5">
-              <p>
-                R. 24 de Maio, 36 - República<br>
-                São Paulo - SP, 01041-000
-              </p>
+              <div class="min-w-0 flex-1">
+                <p class="text-[11px] uppercase tracking-[0.28em] text-white/45">Cadastro digital</p>
+                <h1 class="mt-1 text-xl font-semibold tracking-tight sm:text-2xl">
+                  Arte iPhone Imports
+                </h1>
+                <p class="mt-1 text-sm text-white/55">
+                  Preencha sua ficha com atenção para agilizar seu atendimento.
+                </p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- ENDEREÇO POSTAL -->
-          <div>
-            <p class="opacity-50">Endereço Postal</p>
+        <div class="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
 
-            <div class="mt-2 border border-white/10 p-3 rounded-xl bg-white/5">
-              <p>
-                Av. Ipiranga, 1097 - Conj. 84<br>
-                Centro<br>
-                São Paulo - SP<br>
-                CEP: 01039-904
+          <div class="space-y-6">
+
+            <div class="glass rounded-[30px] p-5 sm:p-7">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                  Seguro
+                </span>
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                  Rápido
+                </span>
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                  Organizado
+                </span>
+              </div>
+
+              <h2 class="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+                Ficha de cadastro digital
+              </h2>
+
+              <p class="mt-4 max-w-xl text-sm leading-7 text-white/62 sm:text-base">
+                Para continuar seu atendimento, preencha os dados abaixo. Após isso,
+                você poderá revisar todas as informações antes de concluir o envio.
               </p>
+
+              <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <div class="soft-border rounded-2xl bg-white/3 p-4">
+                  <p class="text-xs uppercase tracking-[0.2em] text-white/40">Etapa 1</p>
+                  <p class="mt-2 text-sm font-medium text-white">Preencha sua ficha</p>
+                </div>
+                <div class="soft-border rounded-2xl bg-white/3 p-4">
+                  <p class="text-xs uppercase tracking-[0.2em] text-white/40">Etapa 2</p>
+                  <p class="mt-2 text-sm font-medium text-white">Revise seus dados</p>
+                </div>
+                <div class="soft-border rounded-2xl bg-white/3 p-4">
+                  <p class="text-xs uppercase tracking-[0.2em] text-white/40">Etapa 3</p>
+                  <p class="mt-2 text-sm font-medium text-white">Conclua com segurança</p>
+                </div>
+              </div>
             </div>
+
+            <section id="cadastro-step" class="glass rounded-[30px] p-5 sm:p-7">
+              <div class="mb-6">
+                <h3 class="section-title">Preencha esses dados para concluir seu cadastro</h3>
+                <p class="section-subtitle mt-2">
+                  Seus dados serão usados para conferência e continuidade do atendimento.
+                </p>
+              </div>
+
+              <form id="cadastro-form" class="space-y-8">
+
+                <div class="space-y-4">
+                  <div>
+                    <h4 class="text-base font-semibold text-white">Cadastro Cliente</h4>
+                    <p class="mt-1 text-sm text-white/50">
+                      Informe os dados do cliente titular.
+                    </p>
+                  </div>
+
+                  <div>
+                    <label class="label-dark" for="nomeCompleto">Nome completo</label>
+                    <input class="input-dark" type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Digite o nome completo" />
+                  </div>
+
+                  <div>
+                    <label class="label-dark" for="cpf">CPF</label>
+                    <input class="input-dark" type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="14" />
+                  </div>
+
+                  <div>
+                    <label class="label-dark" for="emailCliente">E-mail</label>
+                    <input class="input-dark" type="email" id="emailCliente" name="emailCliente" placeholder="cliente@email.com" />
+                  </div>
+
+                  <div>
+                    <label class="label-dark" for="telefoneCliente">Telefone</label>
+                    <input class="input-dark" type="text" id="telefoneCliente" name="telefoneCliente" placeholder="(11) 99999-9999" maxlength="15" />
+                  </div>
+
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-[180px_1fr]">
+                    <div>
+                      <label class="label-dark" for="cep">CEP</label>
+                      <input class="input-dark" type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" />
+                    </div>
+
+                    <div>
+                      <label class="label-dark" for="rua">Rua</label>
+                      <input class="input-dark" type="text" id="rua" name="rua" placeholder="Rua preenchida pelo CEP" />
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-[140px_1fr]">
+                    <div>
+                      <label class="label-dark" for="numero">Número</label>
+                      <input class="input-dark" type="text" id="numero" name="numero" placeholder="Ex: 36" />
+                    </div>
+
+                    <div>
+                      <label class="label-dark" for="complemento">Complemento</label>
+                      <input class="input-dark" type="text" id="complemento" name="complemento" placeholder="Apartamento, sala, referência..." />
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                      <label class="label-dark" for="bairro">Bairro</label>
+                      <input class="input-dark" type="text" id="bairro" name="bairro" placeholder="Bairro preenchido pelo CEP" />
+                    </div>
+
+                    <div>
+                      <label class="label-dark" for="cidade">Cidade</label>
+                      <input class="input-dark" type="text" id="cidade" name="cidade" placeholder="Cidade preenchida pelo CEP" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="label-dark" for="estado">Estado</label>
+                    <input class="input-dark" type="text" id="estado" name="estado" placeholder="Estado preenchido pelo CEP" />
+                  </div>
+                </div>
+
+                <div class="space-y-4 border-t border-white/10 pt-8">
+                  <div>
+                    <h4 class="text-base font-semibold text-white">Dados do Pagador</h4>
+                    <p class="mt-1 text-sm text-white/50">
+                      Informe apenas os dados do responsável pelo pagamento.
+                    </p>
+                  </div>
+
+                  <div>
+                    <label class="label-dark" for="pagadorNome">Nome</label>
+                    <input class="input-dark" type="text" id="pagadorNome" name="pagadorNome" placeholder="Nome do pagador" />
+                  </div>
+
+                  <div>
+                    <label class="label-dark" for="pagadorEmail">E-mail</label>
+                    <input class="input-dark" type="email" id="pagadorEmail" name="pagadorEmail" placeholder="pagador@email.com" />
+                  </div>
+                </div>
+
+                <div class="pt-2">
+                  <button
+                    type="button"
+                    id="btn-ir-preview"
+                    class="btn-primary w-full px-6 py-4 text-sm sm:text-base"
+                  >
+                    Revisar meus dados
+                  </button>
+                </div>
+              </form>
+            </section>
+
           </div>
 
+          <div class="space-y-6">
+
+            <div class="glass rounded-[30px] p-5 sm:p-7">
+              <p class="text-[11px] uppercase tracking-[0.26em] text-white/40">Informações da loja</p>
+              <h3 class="mt-3 text-xl font-semibold text-white">Arte iPhone Imports</h3>
+
+              <div class="mt-5 space-y-4 text-sm leading-6 text-white/65">
+                <div>
+                  <p class="text-white/38">CNPJ</p>
+                  <p class="mt-1 text-white/90">44.691.554/0001-58</p>
+                </div>
+
+                <div>
+                  <p class="text-white/38">Endereço da Loja</p>
+                  <div class="mt-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-white/90">
+                      R. 24 de Maio, 36 - República,<br />
+                      São Paulo - SP, 01041-000
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="text-white/38">Endereço Postal</p>
+                  <div class="mt-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-white/90">
+                      Av. Ipiranga, 1097 - Conj. 84<br />
+                      Centro<br />
+                      São Paulo - SP<br />
+                      CEP: 01039-904
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="text-white/38">Status do atendimento</p>
+                  <div class="mt-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/85">
+                    <span class="h-2 w-2 rounded-full bg-white"></span>
+                    Cadastro em andamento
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <section id="preview-step" class="glass hidden-step rounded-[30px] p-5 sm:p-7">
+              <div class="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.24em] text-white/40">Pré-visualização</p>
+                  <h3 class="mt-2 text-xl font-semibold text-white">Confira seus dados</h3>
+                  <p class="mt-2 text-sm leading-6 text-white/55">
+                    Revise atentamente antes de concluir seu cadastro.
+                  </p>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-right">
+                  <p class="text-[10px] uppercase tracking-[0.2em] text-white/35">Protocolo</p>
+                  <p id="preview-protocolo" class="mt-1 text-sm font-semibold text-white">ART-2026-0001</p>
+                </div>
+              </div>
+
+              <div class="soft-border overflow-hidden rounded-[28px] bg-white">
+                <div class="border-b border-black/10 px-5 py-4 text-black sm:px-6">
+                  <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-black p-2">
+                        <img
+                          src="images/logo.png"
+                          alt="Logo"
+                          class="max-h-full max-w-full object-contain"
+                          onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;text-[10px] font-bold text-white text-center leading-tight&quot;>ARTE<br>IPHONE</span>';"
+                        />
+                      </div>
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.22em] text-black/45">Ficha de cadastro</p>
+                        <h4 class="mt-1 text-base font-semibold">Arte iPhone Imports</h4>
+                      </div>
+                    </div>
+
+                    <div class="text-right">
+                      <p class="text-[10px] uppercase tracking-[0.2em] text-black/45">Data</p>
+                      <p id="preview-data" class="mt-1 text-sm font-medium">30/03/2026</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6 px-5 py-5 text-black sm:px-6">
+                  <div>
+                    <h5 class="text-sm font-bold uppercase tracking-[0.14em] text-black/55">Cadastro Cliente</h5>
+                    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">Nome completo</p>
+                        <p id="preview-nomeCompleto" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">CPF</p>
+                        <p id="preview-cpf" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div class="sm:col-span-2">
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">E-mail</p>
+                        <p id="preview-emailCliente" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">Telefone</p>
+                        <p id="preview-telefoneCliente" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">CEP</p>
+                        <p id="preview-cep" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">Estado</p>
+                        <p id="preview-estado" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div class="sm:col-span-2">
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">Endereço</p>
+                        <p id="preview-enderecoCompleto" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">Bairro</p>
+                        <p id="preview-bairro" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">Cidade</p>
+                        <p id="preview-cidade" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="border-t border-black/10 pt-6">
+                    <h5 class="text-sm font-bold uppercase tracking-[0.14em] text-black/55">Dados do Pagador</h5>
+                    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">Nome</p>
+                        <p id="preview-pagadorNome" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-black/40">E-mail</p>
+                        <p id="preview-pagadorEmail" class="mt-1 text-sm font-medium text-black">—</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="border-t border-black/10 pt-6">
+                    <label class="flex items-start gap-3">
+                      <input
+                        id="confirmacao"
+                        type="checkbox"
+                        class="mt-1 h-5 w-5 rounded border border-black/20 accent-black"
+                      />
+                      <span class="text-sm leading-6 text-black/75">
+                        Confirmo que os dados informados estão corretos.
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  id="btn-voltar-form"
+                  class="btn-secondary w-full px-5 py-3.5 text-sm"
+                >
+                  Voltar para editar
+                </button>
+
+                <button
+                  type="button"
+                  id="btn-concluir"
+                  class="btn-primary w-full px-5 py-3.5 text-sm"
+                >
+                  Concluir cadastro
+                </button>
+              </div>
+            </section>
+
+            <section id="sucesso-step" class="glass hidden-step rounded-[30px] p-6 sm:p-8">
+              <div class="mx-auto max-w-md text-center">
+                <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-white/5">
+                  <svg class="h-10 w-10 text-white" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7L10 17L4 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+
+                <p class="mt-6 text-[11px] uppercase tracking-[0.28em] text-white/40">Cadastro concluído</p>
+                <h3 class="mt-3 text-2xl font-semibold text-white">
+                  Seus dados foram enviados com sucesso
+                </h3>
+
+                <p class="mt-4 text-sm leading-7 text-white/60">
+                  Recebemos suas informações com segurança. Nossa equipe poderá
+                  utilizar esses dados para dar continuidade ao seu atendimento.
+                </p>
+
+                <div class="mt-6 rounded-2xl border border-white/10 bg-white/4 p-4 text-left">
+                  <p class="text-xs uppercase tracking-[0.18em] text-white/38">Protocolo gerado</p>
+                  <p id="sucesso-protocolo" class="mt-2 text-base font-semibold text-white">
+                    ART-2026-0001
+                  </p>
+                </div>
+
+                <div class="mt-6 rounded-2xl border border-white/10 bg-white/4 p-4 text-sm leading-6 text-white/58">
+                  Seus dados são tratados com cuidado e usados somente para a finalidade do seu atendimento.
+                </div>
+
+                <button
+                  type="button"
+                  id="btn-novo-cadastro"
+                  class="btn-primary mt-6 w-full px-5 py-3.5 text-sm"
+                >
+                  Fazer novo cadastro
+                </button>
+              </div>
+            </section>
+
+          </div>
         </div>
       </div>
+    </section>
+  </main>
 
-    </div>
-
-  </div>
-
-</div>
-
-<script type="module" src="assets/app.js"></script>
-
+  <script type="module" src="assets/app.js"></script>
 </body>
 </html>
