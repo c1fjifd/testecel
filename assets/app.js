@@ -14,6 +14,7 @@ const form = document.getElementById('cadastro-form')
 const nomeCompleto = document.getElementById('nomeCompleto')
 const cpf = document.getElementById('cpf')
 const emailCliente = document.getElementById('emailCliente')
+const telefoneCliente = document.getElementById('telefoneCliente')
 const cep = document.getElementById('cep')
 const rua = document.getElementById('rua')
 const numero = document.getElementById('numero')
@@ -23,7 +24,6 @@ const cidade = document.getElementById('cidade')
 const estado = document.getElementById('estado')
 const pagadorNome = document.getElementById('pagadorNome')
 const pagadorEmail = document.getElementById('pagadorEmail')
-const pagadorTelefone = document.getElementById('pagadorTelefone')
 const confirmacao = document.getElementById('confirmacao')
 
 let protocoloAtual = ''
@@ -115,6 +115,12 @@ function validarFormulario() {
     return false
   }
 
+  if (apenasNumeros(telefoneCliente.value).length < 10) {
+    mostrarMensagem('Preencha um telefone válido do cliente.')
+    telefoneCliente.focus()
+    return false
+  }
+
   if (apenasNumeros(cep.value).length !== 8) {
     mostrarMensagem('Preencha um CEP válido.')
     cep.focus()
@@ -163,12 +169,6 @@ function validarFormulario() {
     return false
   }
 
-  if (apenasNumeros(pagadorTelefone.value).length < 10) {
-    mostrarMensagem('Preencha um telefone válido do pagador.')
-    pagadorTelefone.focus()
-    return false
-  }
-
   return true
 }
 
@@ -182,6 +182,7 @@ function preencherPreview() {
   document.getElementById('preview-nomeCompleto').textContent = valorOuTraco(nomeCompleto.value)
   document.getElementById('preview-cpf').textContent = valorOuTraco(cpf.value)
   document.getElementById('preview-emailCliente').textContent = valorOuTraco(emailCliente.value)
+  document.getElementById('preview-telefoneCliente').textContent = valorOuTraco(telefoneCliente.value)
   document.getElementById('preview-cep').textContent = valorOuTraco(cep.value)
   document.getElementById('preview-estado').textContent = valorOuTraco(estado.value)
   document.getElementById('preview-enderecoCompleto').textContent = montarEnderecoCompleto()
@@ -189,7 +190,6 @@ function preencherPreview() {
   document.getElementById('preview-cidade').textContent = valorOuTraco(cidade.value)
 
   document.getElementById('preview-pagadorNome').textContent = valorOuTraco(pagadorNome.value)
-  document.getElementById('preview-pagadorTelefone').textContent = valorOuTraco(pagadorTelefone.value)
   document.getElementById('preview-pagadorEmail').textContent = valorOuTraco(pagadorEmail.value)
 }
 
@@ -251,6 +251,7 @@ async function salvarCadastro() {
     nome_completo: nomeCompleto.value.trim(),
     cpf: cpf.value.trim(),
     email_cliente: emailCliente.value.trim(),
+    telefone_cliente: telefoneCliente.value.trim(),
     cep: cep.value.trim(),
     rua: rua.value.trim(),
     numero: numero.value.trim(),
@@ -259,8 +260,7 @@ async function salvarCadastro() {
     cidade: cidade.value.trim(),
     estado: estado.value.trim(),
     pagador_nome: pagadorNome.value.trim(),
-    pagador_email: pagadorEmail.value.trim(),
-    pagador_telefone: pagadorTelefone.value.trim()
+    pagador_email: pagadorEmail.value.trim()
   }
 
   const { error } = await supabase
@@ -292,8 +292,8 @@ cep.addEventListener('blur', async () => {
   }
 })
 
-pagadorTelefone.addEventListener('input', () => {
-  pagadorTelefone.value = formatarTelefone(pagadorTelefone.value)
+telefoneCliente.addEventListener('input', () => {
+  telefoneCliente.value = formatarTelefone(telefoneCliente.value)
 })
 
 btnIrPreview.addEventListener('click', () => {
