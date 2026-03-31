@@ -92,13 +92,12 @@
             <div>
               <p class="text-[11px] uppercase tracking-[0.28em] text-white/45">Painel administrativo</p>
               <h1 class="mt-1 text-2xl font-semibold tracking-tight">Cadastros ativos</h1>
-              <p class="mt-1 text-sm text-white/55">Visualize, confira e mova fichas para apagados.</p>
+              <p class="mt-1 text-sm text-white/55">Visualize e gerencie as fichas recebidas.</p>
             </div>
           </div>
 
           <div class="flex flex-col gap-3 sm:flex-row">
             <a href="index.html" class="btn-secondary px-5 py-3 text-sm text-center">Abrir ficha</a>
-            <a href="admin2.html" class="btn-secondary px-5 py-3 text-sm text-center">Ver apagados</a>
             <button id="btn-logout" class="btn-primary px-5 py-3 text-sm">Sair</button>
           </div>
         </div>
@@ -154,12 +153,16 @@
 
           <div class="flex flex-col gap-3 sm:flex-row">
             <button id="btn-apagar" class="btn-danger px-5 py-3 text-sm">
-              Mover para apagados
+              Apagar
             </button>
             <button id="btn-fechar-detalhes" class="btn-secondary px-5 py-3 text-sm">
               Fechar detalhes
             </button>
           </div>
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+          Ao apagar, este cadastro será removido da listagem principal.
         </div>
 
         <div class="mt-6 grid gap-6 lg:grid-cols-2">
