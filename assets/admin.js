@@ -6,8 +6,10 @@ const busca = document.getElementById('busca')
 const btnLogout = document.getElementById('btn-logout')
 const detalhesCard = document.getElementById('detalhes-card')
 const btnFecharDetalhes = document.getElementById('btn-fechar-detalhes')
+const btnApagar = document.getElementById('btn-apagar')
 
 let todosCadastros = []
+let cadastroSelecionado = null
 
 function valorOuTraco(valor) {
   return valor && String(valor).trim() ? String(valor).trim() : '—'
@@ -28,6 +30,8 @@ function preencherResumo(cadastros) {
 }
 
 function preencherDetalhes(cadastro) {
+  cadastroSelecionado = cadastro
+
   document.getElementById('d-protocolo').textContent = valorOuTraco(cadastro.protocolo)
   document.getElementById('d-nome').textContent = valorOuTraco(cadastro.nome_completo)
   document.getElementById('d-cpf').textContent = valorOuTraco(cadastro.cpf)
@@ -41,7 +45,6 @@ function preencherDetalhes(cadastro) {
   document.getElementById('d-cidade').textContent = valorOuTraco(cadastro.cidade)
   document.getElementById('d-estado').textContent = valorOuTraco(cadastro.estado)
   document.getElementById('d-created-at').textContent = formatarData(cadastro.created_at)
-
   document.getElementById('d-pagador-nome').textContent = valorOuTraco(cadastro.pagador_nome)
   document.getElementById('d-pagador-email').textContent = valorOuTraco(cadastro.pagador_email)
 
@@ -55,7 +58,7 @@ function renderizarLista(cadastros) {
   if (!cadastros.length) {
     listaCadastros.innerHTML = `
       <div class="rounded-[24px] border border-white/10 bg-white/3 p-5 text-sm text-white/60">
-        Nenhum cadastro encontrado.
+        Nenhum cadastro ativo encontrado.
       </div>
     `
     return
@@ -138,6 +141,7 @@ async function carregarCadastros() {
   const { data, error } = await supabase
     .from('clientes_cadastro')
     .select('*')
+    .eq('is_deleted', false)
     .order('created_at', { ascending: false })
 
   loading.remove()
@@ -156,6 +160,35 @@ async function carregarCadastros() {
   preencherResumo(todosCadastros)
   renderizarLista(todosCadastros)
 }
+
+async function moverParaApagados() {
+  if (!cadastroSelecionado?.id) {
+    alert('Selecione um cadastro primeiro.')
+    return
+  }
+
+  const confirmar = window.confirm('Deseja mover este cadastro para apagados?')
+
+  if (!confirmar) return
+
+  const { error } = await supabase
+    .from('clientes_cadastro')
+    .update({ is_deleted: true })
+    .eq('id', cadastroSelecionado.id)
+
+  if (error) {
+    console.error(error)
+    alert('Não foi possível mover para apagados.')
+    return
+  }
+
+  detalhesCard.classList.add('hidden')
+  cadastroSelecionado = null
+  await carregarCadastros()
+  alert('Cadastro movido para apagados.')
+}
+
+btnApagar.addEventListener('click', moverParaApagados)
 
 btnLogout.addEventListener('click', async () => {
   await supabase.auth.signOut()
