@@ -50,6 +50,19 @@
       background: rgba(255,255,255,0.07);
     }
 
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.14);
+      color: #fecaca;
+      border: 1px solid rgba(239, 68, 68, 0.22);
+      border-radius: 999px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.20);
+    }
+
     .card-hover {
       transition: all 0.2s ease;
     }
@@ -78,13 +91,14 @@
 
             <div>
               <p class="text-[11px] uppercase tracking-[0.28em] text-white/45">Painel administrativo</p>
-              <h1 class="mt-1 text-2xl font-semibold tracking-tight">Cadastros recebidos</h1>
-              <p class="mt-1 text-sm text-white/55">Visualize e confira todas as fichas enviadas.</p>
+              <h1 class="mt-1 text-2xl font-semibold tracking-tight">Cadastros ativos</h1>
+              <p class="mt-1 text-sm text-white/55">Visualize, confira e mova fichas para apagados.</p>
             </div>
           </div>
 
           <div class="flex flex-col gap-3 sm:flex-row">
             <a href="index.html" class="btn-secondary px-5 py-3 text-sm text-center">Abrir ficha</a>
+            <a href="admin2.html" class="btn-secondary px-5 py-3 text-sm text-center">Ver apagados</a>
             <button id="btn-logout" class="btn-primary px-5 py-3 text-sm">Sair</button>
           </div>
         </div>
@@ -92,7 +106,7 @@
 
       <section class="grid gap-4 sm:grid-cols-3">
         <div class="glass rounded-[24px] p-5">
-          <p class="text-xs uppercase tracking-[0.2em] text-white/40">Total</p>
+          <p class="text-xs uppercase tracking-[0.2em] text-white/40">Ativos</p>
           <p id="total-cadastros" class="mt-3 text-3xl font-semibold text-white">0</p>
         </div>
 
@@ -138,81 +152,41 @@
             <h2 class="mt-2 text-xl font-semibold text-white">Cadastro selecionado</h2>
           </div>
 
-          <button id="btn-fechar-detalhes" class="btn-secondary px-5 py-3 text-sm">
-            Fechar detalhes
-          </button>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <button id="btn-apagar" class="btn-danger px-5 py-3 text-sm">
+              Mover para apagados
+            </button>
+            <button id="btn-fechar-detalhes" class="btn-secondary px-5 py-3 text-sm">
+              Fechar detalhes
+            </button>
+          </div>
         </div>
 
         <div class="mt-6 grid gap-6 lg:grid-cols-2">
           <div class="soft-border rounded-[24px] bg-white/3 p-5">
             <h3 class="text-sm font-bold uppercase tracking-[0.14em] text-white/55">Cadastro Cliente</h3>
             <div class="mt-4 space-y-4 text-sm">
-              <div>
-                <p class="text-white/40">Protocolo</p>
-                <p id="d-protocolo" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Nome completo</p>
-                <p id="d-nome" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">CPF</p>
-                <p id="d-cpf" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">E-mail</p>
-                <p id="d-email-cliente" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Telefone</p>
-                <p id="d-telefone-cliente" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">CEP</p>
-                <p id="d-cep" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Rua</p>
-                <p id="d-rua" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Número</p>
-                <p id="d-numero" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Complemento</p>
-                <p id="d-complemento" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Bairro</p>
-                <p id="d-bairro" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Cidade</p>
-                <p id="d-cidade" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Estado</p>
-                <p id="d-estado" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">Criado em</p>
-                <p id="d-created-at" class="mt-1 text-white">—</p>
-              </div>
+              <div><p class="text-white/40">Protocolo</p><p id="d-protocolo" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Nome completo</p><p id="d-nome" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">CPF</p><p id="d-cpf" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">E-mail</p><p id="d-email-cliente" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Telefone</p><p id="d-telefone-cliente" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">CEP</p><p id="d-cep" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Rua</p><p id="d-rua" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Número</p><p id="d-numero" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Complemento</p><p id="d-complemento" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Bairro</p><p id="d-bairro" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Cidade</p><p id="d-cidade" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Estado</p><p id="d-estado" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">Criado em</p><p id="d-created-at" class="mt-1 text-white">—</p></div>
             </div>
           </div>
 
           <div class="soft-border rounded-[24px] bg-white/3 p-5">
             <h3 class="text-sm font-bold uppercase tracking-[0.14em] text-white/55">Dados do Pagador</h3>
             <div class="mt-4 space-y-4 text-sm">
-              <div>
-                <p class="text-white/40">Nome</p>
-                <p id="d-pagador-nome" class="mt-1 text-white">—</p>
-              </div>
-              <div>
-                <p class="text-white/40">E-mail</p>
-                <p id="d-pagador-email" class="mt-1 text-white">—</p>
-              </div>
+              <div><p class="text-white/40">Nome</p><p id="d-pagador-nome" class="mt-1 text-white">—</p></div>
+              <div><p class="text-white/40">E-mail</p><p id="d-pagador-email" class="mt-1 text-white">—</p></div>
             </div>
           </div>
         </div>
