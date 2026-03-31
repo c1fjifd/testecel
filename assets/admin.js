@@ -136,7 +136,9 @@ async function garantirSessao() {
 }
 
 async function carregarCadastros() {
-  loading.textContent = 'Carregando cadastros...'
+  if (loading) {
+    loading.textContent = 'Carregando cadastros...'
+  }
 
   const { data, error } = await supabase
     .from('clientes_cadastro')
@@ -144,7 +146,9 @@ async function carregarCadastros() {
     .eq('is_deleted', false)
     .order('created_at', { ascending: false })
 
-  loading.remove()
+  if (loading) {
+    loading.remove()
+  }
 
   if (error) {
     console.error(error)
@@ -161,13 +165,15 @@ async function carregarCadastros() {
   renderizarLista(todosCadastros)
 }
 
-async function moverParaApagados() {
+async function apagarCadastro() {
   if (!cadastroSelecionado?.id) {
     alert('Selecione um cadastro primeiro.')
     return
   }
 
-  const confirmar = window.confirm('Deseja mover este cadastro para apagados?')
+  const confirmar = window.confirm(
+    'Tem certeza que deseja apagar este cadastro da listagem principal?'
+  )
 
   if (!confirmar) return
 
@@ -178,17 +184,17 @@ async function moverParaApagados() {
 
   if (error) {
     console.error(error)
-    alert('Não foi possível mover para apagados.')
+    alert('Não foi possível apagar este cadastro.')
     return
   }
 
   detalhesCard.classList.add('hidden')
   cadastroSelecionado = null
   await carregarCadastros()
-  alert('Cadastro movido para apagados.')
+  alert('Cadastro apagado com sucesso da listagem principal.')
 }
 
-btnApagar.addEventListener('click', moverParaApagados)
+btnApagar.addEventListener('click', apagarCadastro)
 
 btnLogout.addEventListener('click', async () => {
   await supabase.auth.signOut()
