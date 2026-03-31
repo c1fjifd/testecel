@@ -83,6 +83,12 @@
       opacity: 0.96;
     }
 
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .btn-secondary {
       background: rgba(255,255,255,0.04);
       color: #fff;
@@ -119,7 +125,6 @@
     <section class="px-4 py-6 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-6xl">
 
-        <!-- TOPO -->
         <div class="mb-6 sm:mb-8">
           <div class="glass rounded-[28px] p-4 sm:p-5">
             <div class="flex items-center gap-4">
@@ -145,13 +150,10 @@
           </div>
         </div>
 
-        <!-- GRID PRINCIPAL -->
         <div class="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
 
-          <!-- COLUNA ESQUERDA -->
           <div class="space-y-6">
 
-            <!-- APRESENTAÇÃO -->
             <div class="glass rounded-[30px] p-5 sm:p-7">
               <div class="flex flex-wrap items-center gap-3">
                 <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
@@ -190,7 +192,6 @@
               </div>
             </div>
 
-            <!-- FORMULÁRIO -->
             <section id="cadastro-step" class="glass rounded-[30px] p-5 sm:p-7">
               <div class="mb-6">
                 <h3 class="section-title">Preencha esses dados para concluir seu cadastro</h3>
@@ -201,7 +202,6 @@
 
               <form id="cadastro-form" class="space-y-8">
 
-                <!-- CADASTRO CLIENTE -->
                 <div class="space-y-4">
                   <div>
                     <h4 class="text-base font-semibold text-white">Cadastro Cliente</h4>
@@ -228,7 +228,7 @@
                   <div class="grid grid-cols-1 gap-4 sm:grid-cols-[180px_1fr]">
                     <div>
                       <label class="label-dark" for="cep">CEP</label>
-                      <input class="input-dark" type="text" id="cep" name="cep" placeholder="00000-000" />
+                      <input class="input-dark" type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" />
                     </div>
 
                     <div>
@@ -267,7 +267,6 @@
                   </div>
                 </div>
 
-                <!-- DADOS PAGADOR -->
                 <div class="space-y-4 border-t border-white/10 pt-8">
                   <div>
                     <h4 class="text-base font-semibold text-white">Dados do Pagador</h4>
@@ -288,7 +287,7 @@
 
                   <div>
                     <label class="label-dark" for="pagadorTelefone">Telefone</label>
-                    <input class="input-dark" type="text" id="pagadorTelefone" name="pagadorTelefone" placeholder="(11) 99999-9999" />
+                    <input class="input-dark" type="text" id="pagadorTelefone" name="pagadorTelefone" placeholder="(11) 99999-9999" maxlength="15" />
                   </div>
                 </div>
 
@@ -306,10 +305,8 @@
 
           </div>
 
-          <!-- COLUNA DIREITA -->
           <div class="space-y-6">
 
-            <!-- CARD DE EMPRESA -->
             <div class="glass rounded-[30px] p-5 sm:p-7">
               <p class="text-[11px] uppercase tracking-[0.26em] text-white/40">Informações da loja</p>
               <h3 class="mt-3 text-xl font-semibold text-white">Arte iPhone Imports</h3>
@@ -338,7 +335,6 @@
               </div>
             </div>
 
-            <!-- PREVIEW -->
             <section id="preview-step" class="glass hidden-step rounded-[30px] p-5 sm:p-7">
               <div class="mb-6 flex items-start justify-between gap-4">
                 <div>
@@ -480,7 +476,6 @@
               </div>
             </section>
 
-            <!-- SUCESSO -->
             <section id="sucesso-step" class="glass hidden-step rounded-[30px] p-6 sm:p-8">
               <div class="mx-auto max-w-md text-center">
                 <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-white/5">
@@ -526,103 +521,6 @@
     </section>
   </main>
 
-  <script>
-    const cadastroStep = document.getElementById('cadastro-step');
-    const previewStep = document.getElementById('preview-step');
-    const sucessoStep = document.getElementById('sucesso-step');
-
-    const btnIrPreview = document.getElementById('btn-ir-preview');
-    const btnVoltarForm = document.getElementById('btn-voltar-form');
-    const btnConcluir = document.getElementById('btn-concluir');
-    const btnNovoCadastro = document.getElementById('btn-novo-cadastro');
-
-    const form = document.getElementById('cadastro-form');
-
-    function gerarProtocoloFake() {
-      const ano = new Date().getFullYear();
-      const numero = String(Math.floor(Math.random() * 9000) + 1000).padStart(4, '0');
-      return `ART-${ano}-${numero}`;
-    }
-
-    function dataAtualBR() {
-      return new Date().toLocaleDateString('pt-BR');
-    }
-
-    function valorOuTraco(valor) {
-      return valor && valor.trim() ? valor.trim() : '—';
-    }
-
-    function montarEnderecoCompleto() {
-      const rua = document.getElementById('rua').value;
-      const numero = document.getElementById('numero').value;
-      const complemento = document.getElementById('complemento').value;
-
-      let endereco = valorOuTraco(rua);
-
-      if (numero.trim()) endereco += `, ${numero.trim()}`;
-      if (complemento.trim()) endereco += ` - ${complemento.trim()}`;
-
-      return endereco === '—' ? '—' : endereco;
-    }
-
-    function preencherPreview() {
-      const protocolo = gerarProtocoloFake();
-
-      document.getElementById('preview-protocolo').textContent = protocolo;
-      document.getElementById('sucesso-protocolo').textContent = protocolo;
-      document.getElementById('preview-data').textContent = dataAtualBR();
-
-      document.getElementById('preview-nomeCompleto').textContent = valorOuTraco(document.getElementById('nomeCompleto').value);
-      document.getElementById('preview-cpf').textContent = valorOuTraco(document.getElementById('cpf').value);
-      document.getElementById('preview-emailCliente').textContent = valorOuTraco(document.getElementById('emailCliente').value);
-      document.getElementById('preview-cep').textContent = valorOuTraco(document.getElementById('cep').value);
-      document.getElementById('preview-estado').textContent = valorOuTraco(document.getElementById('estado').value);
-      document.getElementById('preview-enderecoCompleto').textContent = montarEnderecoCompleto();
-      document.getElementById('preview-bairro').textContent = valorOuTraco(document.getElementById('bairro').value);
-      document.getElementById('preview-cidade').textContent = valorOuTraco(document.getElementById('cidade').value);
-
-      document.getElementById('preview-pagadorNome').textContent = valorOuTraco(document.getElementById('pagadorNome').value);
-      document.getElementById('preview-pagadorTelefone').textContent = valorOuTraco(document.getElementById('pagadorTelefone').value);
-      document.getElementById('preview-pagadorEmail').textContent = valorOuTraco(document.getElementById('pagadorEmail').value);
-    }
-
-    btnIrPreview.addEventListener('click', () => {
-      preencherPreview();
-      cadastroStep.classList.add('hidden-step');
-      sucessoStep.classList.add('hidden-step');
-      previewStep.classList.remove('hidden-step');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    btnVoltarForm.addEventListener('click', () => {
-      previewStep.classList.add('hidden-step');
-      sucessoStep.classList.add('hidden-step');
-      cadastroStep.classList.remove('hidden-step');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    btnConcluir.addEventListener('click', () => {
-      const confirmacao = document.getElementById('confirmacao');
-
-      if (!confirmacao.checked) {
-        alert('Confirme que os dados estão corretos para concluir.');
-        return;
-      }
-
-      previewStep.classList.add('hidden-step');
-      cadastroStep.classList.add('hidden-step');
-      sucessoStep.classList.remove('hidden-step');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    btnNovoCadastro.addEventListener('click', () => {
-      form.reset();
-      document.getElementById('confirmacao').checked = false;
-      previewStep.classList.add('hidden-step');
-      sucessoStep.classList.add('hidden-step');
-      cadastroStep.classList.remove('hidden-step');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
+  <script type="module" src="assets/app.js"></script>
 </body>
 </html>
